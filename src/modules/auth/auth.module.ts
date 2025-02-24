@@ -6,7 +6,9 @@ import { RolesModule } from '../roles/roles.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtConstant } from 'src/constants/jwt.constant';
 import { JwtStrategy } from './strategy/auth.strategy';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 @Module({
   imports: [UsersModule, RolesModule, JwtModule.register({
     global: true,

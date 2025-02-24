@@ -4,6 +4,8 @@ import { RegisterUserDto } from './dto/auth.register.dto';
 import { LoginUserDto } from './dto/auth.login.dto';
 import { JwtAuthGuard } from './guard/auth.guard';
 import { UserProfile } from './interface/auth.interface';
+import { Roles } from './decorator/roles.decorator';
+import { RolesGuard } from './guard/roles.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -36,7 +38,8 @@ export class AuthController {
   }
 
   @Get('profile')
-  @UseGuards(JwtAuthGuard)
+  @Roles('admin')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   public profile(@Req() req: any): UserProfile {
     const { id, name, email, roles } = req.user;
     return { id, name, email, roles };
